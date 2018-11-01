@@ -3,3 +3,206 @@
     margin: 0;
     padding: 0;
 }
+
+body{
+    font-family: Verdana;
+    padding:50px 15px;
+}
+
+form{
+    max-width:100%;
+    width: 400px;
+    margin:0 auto;
+}
+
+.input-field{
+    margin-bottom: 20px;
+    position:relative;
+    &__placeholder{
+        position:absolute;
+        top:17px;
+        left:10px;
+        transition: all .2s;
+        cursor: text;
+    }
+    &__additions{
+        color:#aeaeae;
+        font-size: 12px;
+        display:inline-block;
+        margin: 10px 5px;
+    }
+    &__tooltip{
+        display:none;
+    }
+    input{
+        background-color: #fffcf5;
+        border:none;
+        outline: none;
+        display:block;
+        padding:30px 10px 10px;
+        width: 100%;
+        border-bottom:2px solid #cdccc8;
+        transition:all .3s;
+        &:focus{
+            border-bottom:2px solid #a73c86;
+            & + .input-field__placeholder{
+                font-size:12px;
+                color: #a73c86;
+                top: 5px;
+            }
+        }
+    }
+    &.filled{
+        input{
+            border-bottom:2px solid #a73c86;
+            & + .input-field__placeholder{
+                font-size:12px;
+                color: #a73c86;
+                top: 5px;
+            }
+        }
+    }
+    &.complete{
+        input{
+            background-color: #fff7e0;
+            border-bottom:2px solid #a73c86;
+        }
+    }
+    &.error{
+        input{
+            background-color: #feeadf;
+            border-bottom:2px solid #812335;
+        }
+
+        .input-field__placeholder,
+        .input-field__additions{
+            color:#812335;
+        }
+    }
+    &.approve{
+        cursor: default;
+        input{
+            background-color: #e4e4e4;
+        }
+    }
+}
+
+.checkbox-field{
+    position:relative;
+    margin-bottom: 15px;
+    transition: all .3s;
+
+    &__placeholder{
+        display:block;
+        color: #bf12bf;
+        font-weight:bold;
+        margin-bottom: 10px;
+    }
+    &__help{
+        display:block;
+        font-size:14px;
+        color: #878787;
+    }
+
+    label{
+        display:block;
+        padding:15px 50px;
+    }
+
+    input{
+        display:none;
+        & + label{
+            &:before{
+                content: " ";
+                display:block;
+                position:absolute;
+                height: 21px;
+                width: 21px;
+                border:1px solid #e8e8e8;
+                border-radius:3px;
+                top:15px;
+                left:15px;
+            }
+            &:after{
+                content: " ";
+                display:block;
+                position:absolute;
+                height: 15px;
+                width: 15px;
+                top: 19px;
+                left: 19px;
+                background-color: #bf12bf;
+                border-radius:3px;
+                transition:all .3s;
+                transform: scale(0);
+            }
+        }
+        &:checked{
+            & + label{
+                &:after{
+                    transform:scale(1);
+                }
+            }
+        }
+    }
+
+    &.checked{
+        background-color: #feecba;
+        label {
+            .checkbox-field__help{
+                color:#000;
+            }
+        }
+    }
+
+}
+
+.button-field{
+    text-align:center;
+    margin-top: 35px;
+    margin-bottom: 30px;
+}
+
+.button{
+    background-color: #ffb701;
+    border:none;
+    color:#fff;
+    font-weight:bold;
+    padding:15px 50px;
+    border-radius:30px;
+    cursor:pointer;
+    transition: all .3s;
+    outline:none !important;
+    &:hover{
+        background-color: #ffa600;
+    }
+
+    &.disabled{
+        background-color: #9b9b9b;
+    }
+}
+
+.errors{
+    color: #812335;
+}
+
+.results{
+    text-align:center;
+    .founds{
+        margin-top: 20px;
+        .item{
+            text-align:left;
+            margin-bottom: 15px;
+            padding:10px;
+            background-color: #feecba;
+            p{
+                margin-bottom: 5px;
+            }
+            .name{
+                color: #bf12bf;
+                font-weight:bold;
+                margin-bottom: 15px;
+            }
+        }
+    }
+}

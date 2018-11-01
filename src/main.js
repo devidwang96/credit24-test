@@ -2,11 +2,18 @@ import Vue from 'vue'
 import App from './App.vue'
 import './scss/app.scss'
 
-Vue.component('Button', require('./components/Button'));
-Vue.component('Checkbox', require('./components/Checkbox'));
-Vue.component('Input', require('./components/Input'));
+import Button from './components/Button';
+import Checkbox from './components/Checkbox';
+import Input from './components/Input';
+
+import VueTheMask from 'vue-the-mask'
+Vue.use(VueTheMask);
+
+Vue.component('site-button', Button);
+Vue.component('site-checkbox', Checkbox);
+Vue.component('site-input', Input);
 
 new Vue({
     el: '#app',
-    render: h => h(App)
+    render: h => h(App),
 });
