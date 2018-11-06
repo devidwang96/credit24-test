@@ -19,8 +19,8 @@
                        :id="name"
                        :disabled="approve">
                 <span class="input-field__placeholder">{{ placeholder }}</span>
-                <span class="input-field__additions">{{ error ? error : help }}</span>
-                <div class="input-field__tooltip">
+                <span v-if="!approve" class="input-field__additions">{{ error ? error : help }}</span>
+                <div class="input-field__tooltip" :class="['input-field__tooltip', {'show': (error && !empty && !approve)}]">
                     {{ tooltip }}
                 </div>
             </label>
@@ -42,7 +42,8 @@
             'tooltip',
             'error',
             'regEx',
-            'errorMessage'
+            'errorMessage',
+            'empty'
         ],
         data(){
             return {

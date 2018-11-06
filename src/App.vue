@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <form v-on:submit.prevent="formSubmit()">
+        <form :class="{'submitted': formState.submitted}" v-on:submit.prevent="formSubmit()">
             <site-input v-for="(input, key) in inputs"
                         :key="'input_' + key"
                         :placeholder="input.placeholder"
@@ -11,6 +11,7 @@
                         :complete="input.complete"
                         :name="input.name"
                         :regEx="input.regEx"
+                        :empty="input.empty"
                         :errorMessage="input.errorMessage"
                         @getInputError="setInputError($event)"
                         @getInputComplete="setInputComplete($event)"
@@ -97,11 +98,12 @@
                         help: 'Введите телефон пользователя',
                         mask: '+7(###)###-##-##',
                         regEx: /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/,
-                        tooltip: 'Здесь вам следует ввести мобильный телефон пользователя которого вы ищите',
+                        tooltip: 'Проверьте, правильно ли введен номер телефона. Телефон должен быть в формате +7(***)***-**-**',
                         error: null,
                         errorMessage: 'Телефон введен некорректно',
                         approve: false,
                         complete: null,
+                        empty: false,
                         value: '',
                     },
                     {
@@ -115,6 +117,7 @@
                         errorMessage: '',
                         approve: false,
                         complete: null,
+                        empty: false,
                         value: '',
                     },
                     {
@@ -123,11 +126,12 @@
                         help: 'Введите E-mail пользователя',
                         mask: null,
                         regEx: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                        tooltip: 'Здесь вам следует ввести E-mail пользователя',
+                        tooltip: 'Проверьте, правильно ли введет E-mail',
                         error: null,
                         errorMessage: 'E-mail введен некорректно',
                         approve: false,
                         complete: null,
+                        empty: false,
                         value: '',
                     },
                 ],
@@ -199,6 +203,11 @@
                     if(!item.approve){
                         if(formSubmit && item.value === ''){
                             item.error = 'Вы оставили поле пустым';
+                        }
+                        if(item.value === ''){
+                            item.empty = true;
+                        } else {
+                            item.empty = false;
                         }
                         if(!item.error && item.value !== ''){
                             itemCount++
